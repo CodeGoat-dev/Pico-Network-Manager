@@ -3,7 +3,7 @@
 # © (c) 2024-2025 Goat Technologies
 # Description:
 # A lightweight configuration manager library for MicroPython.
-# Provides INI-style configuration file support for Goat firmware.
+# Provides INI-style configuration file support for Micropython firmware.
 
 # Imports
 import re
@@ -12,7 +12,7 @@ import uasyncio as asyncio
 
 # ConfigManager class
 class ConfigManager:
-    """Provides configuration file management support for Goat firmware."""
+    """Provides configuration file management support for Micropython firmware."""
 
     def __init__(self, directory, filename, auto_read=False, auto_save=False):
         """Initialize the configuration manager."""

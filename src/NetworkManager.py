@@ -1,8 +1,9 @@
-# Goat - Network Manager class
+# Goat - Network Manager library
 # Version 1.0.0
 # © (c) 2024-2025 Goat Technologies
 # Description:
-# Provides network management for Goat device firmware.
+# Provides network management for your device firmware.
+# Designed for the Raspberry Pi Pico W microcontroller.
 # Responsible for maintaining network state and managing connection lifetime.
 # Includes access point mode with a captive portal as well as station mode.
 # Includes DNS redirection for captive portal compliance.
@@ -17,11 +18,11 @@ from ConfigManager import ConfigManager
 
 # NetworkManager class
 class NetworkManager:
-    """Provides network management for Goat device firmware.
+    """Provides network management for device firmware.
     Responsible for maintaining network state and managing connection lifetime.
 """
     # Class constructor
-    def __init__(self, ap_ssid="Goat - Captive Portal", ap_password="securepassword", hostname = "SecureMe", sta_web_server = None):
+    def __init__(self, ap_ssid="Goat - Captive Portal", ap_password="password", hostname = "PicoW", sta_web_server = None):
         """Constructs the class and exposes properties."""
         # Network configuration
         self.config_directory = "/config"
