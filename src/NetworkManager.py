@@ -426,7 +426,7 @@ class NetworkManager:
                 # Check if both STA and AP are disconnected
                 if not self.sta_if.isconnected() and not self.ap_if.isconnected():
                     print("No active connections. Rescanning...")
-                    await asyncio.sleep(2)  # Pause before rescanning
+                    await asyncio.sleep(3)  # Pause before rescanning
                     continue
 
                 await asyncio.sleep(0.1)
