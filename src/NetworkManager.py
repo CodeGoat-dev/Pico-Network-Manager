@@ -23,7 +23,7 @@ class NetworkManager:
     Responsible for maintaining network state and managing connection lifetime.
 """
     # Class constructor
-    def __init__(self, ap_ssid="Goat - Captive Portal", ap_password="password", hostname = "PicoW", sta_web_server = None):
+    def __init__(self, ap_ssid="Goat - Captive Portal", ap_password="password", hostname="PicoW", sta_web_server=None):
         """Constructs the class and exposes properties."""
         # Network configuration
         self.config_directory = "/config"
