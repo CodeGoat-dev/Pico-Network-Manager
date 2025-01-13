@@ -6,6 +6,7 @@
 # Designed for the Raspberry Pi Pico W microcontroller.
 # Responsible for maintaining network state and managing connection lifetime.
 # Includes access point mode with a captive portal as well as station mode.
+# Includes automatic network reconnection and access point fallback.
 # Includes DNS redirection for captive portal compliance.
 
 # Imports
