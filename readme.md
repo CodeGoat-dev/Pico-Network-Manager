@@ -4,6 +4,30 @@ A library to help you connect to wireless networks and manage network connection
 
 [GitHub Repository](https://github.com/CodeGoat-dev/Pico-Network-Manager)
 
+## Table of Contents
+1. [Overview](#overview)
+2. [Features](#features)
+3. [Getting Started](#getting-started)  
+   - [Requirements](#requirements)  
+4. [Setup Instructions](#setup-instructions)  
+   - [Software Setup](#1-software-setup)  
+   - [Network Configuration](#2-network-configuration)  
+   - [Web Interface](#3-web-interface)  
+5. [Usage](#usage)  
+   - [Basic Implementation](#basic-implementation)  
+   - [Customizing Parameters](#customizing-parameters)  
+6. [Security Considerations](#security-considerations)  
+7. [Usage Scenarios](#usage-scenarios)  
+   - [Portable Devices](#portable-devices)  
+   - [Home Automation](#home-automation)  
+   - [IoT Devices](#iot-devices)  
+8. [Future Enhancements](#future-enhancements)  
+9. [Contributing](#contributing)  
+10. [License](#license)  
+11. [Support](#support)
+
+---
+
 ## Overview
 
 **Goat - Pico Network Manager** is a Micropython library for the Raspberry Pi Pico W series of microcontrollers. Perfect for all your networking needs, this library comes with a captive portal for initial network setup and can even manage a web server when connected.
