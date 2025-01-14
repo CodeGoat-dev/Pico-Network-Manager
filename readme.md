@@ -16,6 +16,7 @@ A library to help you connect to wireless networks and manage network connection
 5. [Usage](#usage)  
    - [Basic Implementation](#basic-implementation)  
    - [Customizing Parameters](#customizing-parameters)  
+   - [Extended Customisation](#extended-customisation)  
 6. [Security Considerations](#security-considerations)  
 7. [Usage Scenarios](#usage-scenarios)  
    - [Portable Devices](#portable-devices)  
@@ -119,6 +120,35 @@ The library is easy to integrate into your existing project.
        hostname="MyPicoW",
        sta_web_server=web_server
    )
+   ```
+   - Your optional web server must implement `run()` and `stop_server()` methods which the Network Manager will use.
+
+3. **Extended Customisation**: Customize settings by passing parameters after instantiation:
+   ```python
+   from WebServer import WebServer
+
+   web_server = WebServer()
+   network_manager = NetworkManager(
+       ap_ssid="My Access Point",
+       ap_password="MyPassword",
+       hostname="MyPicoW",
+       sta_web_server=web_server
+   )
+
+        # Access point settings
+   network_manager.ap_ssid = "My Access Point"
+   network_manager.ap_password = "MyPassword"
+   network_manager.captive_portal_http_port = 80
+   network_manager.network_connection_timeout = 10
+
+   # Access point IP settings
+   network_manager.ap_ip_address = "192.168.4.1"
+   network_manager.ap_subnet = "255.255.255.0"
+   network_manager.ap_gateway = "192.168.4.1"
+   network_manager.ap_dns = "192.168.4.1"
+
+   # DHCP settings
+   network_manager.hostname = "PicoW"
    ```
    - Your optional web server must implement `run()` and `stop_server()` methods which the Network Manager will use.
 
