@@ -13,7 +13,6 @@ import uasyncio as asyncio
 # ConfigManager class
 class ConfigManager:
     """Provides configuration file management support for Micropython firmware."""
-
     def __init__(self, directory, filename, auto_read=False, auto_save=False):
         """Initialize the configuration manager."""
         if directory is None:
