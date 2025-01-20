@@ -31,6 +31,7 @@ class NetworkManager:
 
         # Constants
         self.VERSION = "1.0.1"
+       self.repo_url = "https://github.com/CodeGoat-dev/Pico-Network-Manager"
 
         # Interface configuration
         self.sta_if = network.WLAN(network.STA_IF)
@@ -214,6 +215,7 @@ class NetworkManager:
             {body}
             <h1>Information</h1>
             <p>Check out other Goat Technologies offerings at <a href="https://goatbot.org/">Goatbot.org</a></p>
+            <p>Contribute to <b>Pico Network Manager</b> on <a href="{self.REPO_URL}">GitHub</a></p>
             <p><b>Version {self.VERSION}</b><br>
             <b>© (c) 2024-2025 Goat Technologies</b></p>
         </body>
