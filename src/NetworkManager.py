@@ -408,7 +408,7 @@ class NetworkManager:
     async def run(self):
         """Runs the network manager initialization process and maintains connectivity."""
         try:
-            print(f"Goat - Network Manager Version {self.VERSION}")
+            print(f"Goat - Pico Network Manager Version {self.VERSION}")
 
             # Set the hostname for the device
             network.hostname(self.hostname)
