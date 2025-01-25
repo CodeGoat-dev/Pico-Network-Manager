@@ -407,8 +407,19 @@ class NetworkManager:
 
     async def run(self):
         """Runs the network manager initialization process and maintains connectivity."""
+        print(f"Goat - Pico Network Manager Version {self.VERSION}")
+
         try:
-            print(f"Goat - Pico Network Manager Version {self.VERSION}")
+            print("Preparing network interfaces...")
+
+            try:
+                self.ap_if.deinit()
+                self.ap_if.config(essid="", password="")
+                self.ap_if.active(False)
+                self.sta_if.deinit()
+                self.sta_if.active(False)
+            except Exception as e:
+                print(f"Unable to prepare network interfaces: {e}")
 
             # Set the hostname for the device
             network.hostname(self.hostname)

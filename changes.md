@@ -2,6 +2,14 @@
 
 This document outlines the changes made between versions of the **Goat - Pico Network Manager** library.
 
+## V1.0.2
+
+### Changes
+
+#### Initialization
+
+Network interfaces are now prepared by de-initializing during class initialization.
+
 ## V1.0.1
 
 ### Changes
