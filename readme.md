@@ -117,6 +117,7 @@ The library is easy to integrate into your existing project.
    network_manager = NetworkManager(
        ap_ssid="My Access Point",
        ap_password="MyPassword",
+       ap_dns_server=True,
        hostname="MyPicoW",
        sta_web_server=web_server
    )
@@ -131,6 +132,7 @@ The library is easy to integrate into your existing project.
    network_manager = NetworkManager(
        ap_ssid="My Access Point",
        ap_password="MyPassword",
+       ap_dns_server=True,
        hostname="MyPicoW",
        sta_web_server=web_server
    )
@@ -138,6 +140,7 @@ The library is easy to integrate into your existing project.
         # Access point settings
    network_manager.ap_ssid = "My Access Point"
    network_manager.ap_password = "MyPassword"
+   network_manager.ap_dns_server = True
    network_manager.captive_portal_http_port = 80
    network_manager.network_connection_timeout = 10
 
