@@ -4,6 +4,12 @@ This document outlines the changes made between versions of the **Goat - Pico Ne
 
 ## V1.0.2
 
+### New Features
+
+#### Instantiation
+
+When instantiating the `NetworkManager` class, you can now specify an `ap_dns_server` Boolean property to enable/disable access point DNS redirection.
+
 ### Changes
 
 #### Initialization

@@ -23,7 +23,7 @@ class NetworkManager:
     Responsible for maintaining network state and managing connection lifetime.
     """
     # Class constructor
-    def __init__(self, ap_ssid="Goat - Captive Portal", ap_password="password", hostname="PicoW", sta_web_server=None):
+    def __init__(self, ap_ssid="Goat - Captive Portal", ap_password="password", ap_dns_server=True, hostname="PicoW", sta_web_server=None):
         """Constructs the class and exposes properties."""
         # Network configuration
         self.config_directory = "/config"
@@ -42,6 +42,7 @@ class NetworkManager:
         # Access point settings
         self.ap_ssid = ap_ssid
         self.ap_password = ap_password
+        self.ap_dns_server = ap_dns_server
         self.captive_portal_http_port = 80
         self.network_connection_timeout = 10
 
@@ -301,7 +302,8 @@ class NetworkManager:
 
                 try:
                     await self.stop_captive_portal_server()
-                    await self.dns_server.stop_dns()
+                    if self.ap_dns_server:
+                        await self.dns_server.stop_dns()
                     await self.stop_ap()
                 except Exception as e:
                     print(f"Error stopping access point services: {e}")
@@ -342,7 +344,8 @@ class NetworkManager:
             if self.sta_if.isconnected():
                 try:
                     await self.stop_captive_portal_server()
-                    await self.dns_server.stop_dns()
+                    if self.ap_dns_server:
+                        await self.dns_server.stop_dns()
                     await self.stop_ap()
                 except Exception as e:
                     print(f"Error stopping access point services: {e}")
@@ -435,7 +438,8 @@ class NetworkManager:
                         print("Switching to AP mode...")
                         await self.start_ap()
                         await self.start_captive_portal_server()
-                        await self.dns_server.start_dns()
+                        if self.ap_dns_server:
+                            await self.dns_server.start_dns()
 
                 # Check if both STA and AP are disconnected
                 if not self.sta_if.isconnected() and not self.ap_if.isconnected():
@@ -457,7 +461,8 @@ class NetworkManager:
                     await self.disconnect_from_wifi()
                 if self.ap_if.isconnected():
                     print("Stopping access point services...")
-                    await self.dns_server.stop_dns()
+                    if self.ap_dns_server:
+                        await self.dns_server.stop_dns()
                     await self.stop_captive_portal_server()
                     await self.stop_ap()
             except Exception as cleanup_error:
