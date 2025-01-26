@@ -59,7 +59,7 @@ Pico Network Manager comes packed with the following features:
   Configure a web interface for your firmware to be used when connected to a network.
 
 - **Time Synchronisation**  
-  Automatic time synchronisation from World Time API when connected to wi-fi.
+  Enable automatic time synchronisation from World Time API when connected to wi-fi.
 
 ---
 
@@ -122,6 +122,7 @@ The library is easy to integrate into your existing project.
        ap_password="MyPassword",
        ap_dns_server=True,
        hostname="MyPicoW",
+       time_sync=True,
        sta_web_server=web_server
    )
    ```
@@ -137,6 +138,7 @@ The library is easy to integrate into your existing project.
        ap_password="MyPassword",
        ap_dns_server=True,
        hostname="MyPicoW",
+       time_sync=True,
        sta_web_server=web_server
    )
 
@@ -155,6 +157,9 @@ The library is easy to integrate into your existing project.
 
    # DHCP settings
    network_manager.hostname = "PicoW"
+
+   # Time synchronisation
+   network_manager.time_sync = time_sync
    ```
    - Your optional web server must implement `run()` and `stop_server()` methods which the Network Manager will use.
 

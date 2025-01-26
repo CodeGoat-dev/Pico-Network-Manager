@@ -25,7 +25,7 @@ class NetworkManager:
     Responsible for maintaining network state and managing connection lifetime.
     """
     # Class constructor
-    def __init__(self, ap_ssid="Goat - Captive Portal", ap_password="password", ap_dns_server=True, hostname="PicoW", sta_web_server=None):
+    def __init__(self, ap_ssid="Goat - Captive Portal", ap_password="password", ap_dns_server=True, hostname="PicoW", time_sync=True, sta_web_server=None):
         """Constructs the class and exposes properties."""
         # Network configuration
         self.config_directory = "/config"
@@ -60,6 +60,9 @@ class NetworkManager:
         # Captive portal DNS server
         self.dns_server = NetworkManagerDNS(portal_ip=self.ap_ip_address)
 
+        # Time synchronisation
+        self.time_sync = time_sync
+
         # STA web server configuration
         self.sta_web_server = sta_web_server
 
@@ -91,8 +94,10 @@ class NetworkManager:
                     if self.sta_if.isconnected():
                         self.ip_address = self.sta_if.ifconfig()[0]
                         print(f"Connected to {ssid}. IP: {self.ip_address}")
+                        # Set system date/time
                         try:
-                            await self.get_ntp_time()
+                            if self.time_sync:
+                                await self.get_ntp_time()
                         except Exception as e:
                             print(f"Unable to set the system date and time: {e}")
                         if self.sta_web_server:
@@ -169,6 +174,33 @@ class NetworkManager:
             print("Access point stopped.")
         except Exception as e:
             print(f"Error stopping Access point: {e}")
+
+    async def start_captive_portal_server(self):
+        """Starts the captive portal HTTP server asynchronously."""
+        if not self.ip_address:
+            print("AP IP address not assigned. Cannot start server.")
+            return
+
+        try:
+            self.server = await asyncio.start_server(self.handle_request, self.ip_address, self.captive_portal_http_port)
+            print(f"Serving on {self.ip_address}:{self.captive_portal_http_port}")
+
+            while True:
+                await asyncio.sleep(1)  # Keep the server running
+        except Exception as e:
+            print(f"Error starting the captive portal server: {e}")
+
+    async def stop_captive_portal_server(self):
+        """Stops the captive portal HTTP server."""
+        try:
+            if self.server:
+                self.server.close()
+                await self.server.wait_closed()
+                print("Server stopped.")
+            else:
+                print("Server already stopped.")
+        except Exception as e:
+            print(f"Error stopping server: {e}")
 
     async def handle_request(self, reader, writer):
         """Handles incoming HTTP requests for the captive portal."""
@@ -316,7 +348,8 @@ class NetworkManager:
 
                 # Set system date/time
                 try:
-                    await self.get_ntp_time()
+                    if self.time_sync:
+                        await self.get_ntp_time()
                 except Exception as e:
                     print(f"Unable to set the system date and time: {e}")
 
@@ -364,7 +397,8 @@ class NetworkManager:
 
                 # Set system date/time
                 try:
-                    await self.get_ntp_time()
+                    if self.time_sync:
+                        await self.get_ntp_time()
                 except Exception as e:
                     print(f"Unable to set the system date and time: {e}")
 
@@ -405,33 +439,6 @@ class NetworkManager:
         <p>Click the link below to scan for networks:</p>
         <p><a href='/scan'>Start Scan</a></p>"""
         return self.html_template("Goat - Captive Portal", body)
-
-    async def start_captive_portal_server(self):
-        """Starts the captive portal HTTP server asynchronously."""
-        if not self.ip_address:
-            print("AP IP address not assigned. Cannot start server.")
-            return
-
-        try:
-            self.server = await asyncio.start_server(self.handle_request, self.ip_address, self.captive_portal_http_port)
-            print(f"Serving on {self.ip_address}:{self.captive_portal_http_port}")
-
-            while True:
-                await asyncio.sleep(1)  # Keep the server running
-        except Exception as e:
-            print(f"Error starting the captive portal server: {e}")
-
-    async def stop_captive_portal_server(self):
-        """Stops the captive portal HTTP server."""
-        try:
-            if self.server:
-                self.server.close()
-                await self.server.wait_closed()
-                print("Server stopped.")
-            else:
-                print("Server already stopped.")
-        except Exception as e:
-            print(f"Error stopping server: {e}")
 
     async def get_ntp_time(self):
         """Fetches the current date and time from an NTP server or time API and sets the system time."""

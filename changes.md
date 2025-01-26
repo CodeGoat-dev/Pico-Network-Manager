@@ -6,9 +6,13 @@ This document outlines the changes made between versions of the **Goat - Pico Ne
 
 ### New Features
 
+#### Instantiation
+
+When instantiating the `NetworkManager` class, you can now specify a `time_sync` Boolean property to enable/disable time synchronisation.
+
 #### Date And Time Synchronisation
 
-When connected to a wireless network, the system date and time is now synchronised from a well known NTP time provider. The **World Time API** is used for date and time retrieval.
+When connected to a wireless network, the system date and time can now be synchronised from a well known NTP time provider. The **World Time API** is used for date and time retrieval.
 
 ### Bug Fixes
 
