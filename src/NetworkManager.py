@@ -415,43 +415,6 @@ class NetworkManager:
         except Exception as e:
             print(f"Error stopping server: {e}")
 
-    async def get_ntp_time(self):
-        """Fetches the current date and time from an NTP server or time API and sets the system time."""
-        url = "http://worldtimeapi.org/api/ip"
-    
-        try:
-            # Use asyncio to make an asynchronous HTTP request
-            print("Fetching time from API...")
-            response = await asyncio.to_thread(urequests.get, url)
-
-            if response.status_code == 200:
-                data = response.json()
-
-                # Extract datetime string from response
-                datetime_str = data['datetime']
-
-                # Parse datetime string: "2025-01-26T12:34:56.789123+00:00"
-                date_time = datetime_str.split('T')
-                date = date_time[0].split('-')
-                time_ = date_time[1].split(':')
-
-                # Extract year, month, day, hour, minute, second
-                year, month, day = map(int, date)
-                hour, minute, second = map(int, time_[:2])
-
-                # Set the system time
-                time_tuple = (year, month, day, hour, minute, second, 0, 0, 0)
-                time.mktime(time_tuple)
-            
-                print("Date and time set to:", datetime_str)
-            else:
-                print(f"Failed to fetch time. Status code: {response.status_code}")
-        except Exception as e:
-            print(f"An error occurred: {e}")
-        finally:
-            if 'response' in locals():
-                response.close()
-
     async def run(self):
         """Runs the network manager initialization process and maintains connectivity."""
         print(f"Goat - Pico Network Manager Version {self.VERSION}")
