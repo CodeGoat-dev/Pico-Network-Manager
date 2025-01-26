@@ -2,6 +2,14 @@
 
 This document outlines the changes made between versions of the **Goat - Pico Network Manager** library.
 
+## V1.0.3
+
+### Bug Fixes
+
+#### Captive Portal
+
+Fixes an issue re-initializing the station web server when reconnecting to a network via the captive portal.
+
 ## V1.0.2
 
 ### New Features
