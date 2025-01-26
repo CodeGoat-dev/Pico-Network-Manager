@@ -58,6 +58,9 @@ Pico Network Manager comes packed with the following features:
 - **Web Interface**  
   Configure a web interface for your firmware to be used when connected to a network.
 
+- **Time Synchronisation**  
+  Automatic time synchronisation from World Time API when connected to wi-fi.
+
 ---
 
 ## Getting Started
