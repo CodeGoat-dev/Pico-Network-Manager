@@ -4,6 +4,12 @@ This document outlines the changes made between versions of the **Goat - Pico Ne
 
 ## V1.0.3
 
+### New Features
+
+#### Date And Time Synchronisation
+
+When connected to a wireless network, the system date and time is now synchronised from a well known NTP time provider. The **World Time API** is used for date and time retrieval.
+
 ### Bug Fixes
 
 #### Captive Portal
