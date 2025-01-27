@@ -2,6 +2,14 @@
 
 This document outlines the changes made between versions of the **Goat - Pico Network Manager** library.
 
+## V1.0.4
+
+### Changes
+
+#### Date And Time Synchronisation
+
+Date and time synchronisation now uses a new internal API to improve reliability.
+
 ## V1.0.3
 
 ### New Features

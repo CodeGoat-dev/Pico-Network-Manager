@@ -442,7 +442,7 @@ class NetworkManager:
 
     async def get_ntp_time(self):
         """Fetches the current date and time from an NTP server or time API and sets the system time."""
-        url = "http://worldtimeapi.org/api/ip"
+        url = "https://goatbot.org/api/time"
     
         try:
             print("Fetching time from API...")
@@ -452,16 +452,15 @@ class NetworkManager:
                 data = response.json()
 
                 # Extract datetime string from response
-                datetime_str = data['datetime']
+                datetime_str = data['currentTime']
 
-                # Parse datetime string: "2025-01-26T12:34:56.789123+00:00"
-                date_time = datetime_str.split('T')
-                date = date_time[0].split('-')
-                time_ = date_time[1].split(':')
+                if not datetime_str:
+                    raise ValueError("Missing 'currentTime' in API response.")
 
-                # Extract year, month, day, hour, minute, second
-                year, month, day = map(int, date)
-                hour, minute, second = map(int, time_[:2])
+                # Parse datetime string: "2025-01-26T12:34:56"
+                date_part, time_part = datetime_str.split('T')
+                year, month, day = map(int, date_part.split('-'))
+                hour, minute, second = map(int, time_part.split(':'))
 
                 # Set the system time
                 time_tuple = (year, month, day, hour, minute, second, 0, 0, 0)
