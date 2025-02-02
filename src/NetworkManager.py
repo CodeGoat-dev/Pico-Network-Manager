@@ -25,7 +25,7 @@ class NetworkManager:
     Responsible for maintaining network state and managing connection lifetime.
     """
     # Class constructor
-    def __init__(self, ap_ssid="Goat - Captive Portal", ap_password="password", ap_dns_server=True, hostname="PicoW", time_sync=True, sta_web_server=None):
+    def __init__(self, ap_ssid="Goat - Captive Portal", ap_password="password", ap_dns_server=True, hostname="PicoW", time_sync=True, time_server="https://goatbot.org", sta_web_server=None):
         """Constructs the class and exposes properties."""
         # Network configuration
         self.config_directory = "/config"
@@ -60,8 +60,9 @@ class NetworkManager:
         # Captive portal DNS server
         self.dns_server = NetworkManagerDNS(portal_ip=self.ap_ip_address)
 
-        # Time synchronisation
+        # Time synchronisation settings
         self.time_sync = time_sync
+        self.time_server = time_server
 
         # STA web server configuration
         self.sta_web_server = sta_web_server
@@ -442,7 +443,7 @@ class NetworkManager:
 
     async def get_ntp_time(self):
         """Fetches the current date and time from an NTP server or time API and sets the system time."""
-        url = "https://goatbot.org/api/time"
+        url = f"{self.time_server}/api/time"
     
         try:
             print("Fetching time from API...")
