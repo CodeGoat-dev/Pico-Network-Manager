@@ -1,0 +1,16 @@
+{
+  "logging": {
+    "webLog": "./logs/web.log"
+  },
+  "api": {
+    "domain": "http://goatbot.org",
+    "port": 80,
+    "sslDomain": "https://goatbot.org",
+    "sslPort": "443",
+    "sslCertificate": "/etc/letsencrypt/live/goatbot.org/cert.pem",
+    "sslKey": "/etc/letsencrypt/live/goatbot.org/privkey.pem",
+    "sslCa": "/etc/letsencrypt/live/goatbot.org/chain.pem",
+    "enableSSL": true,
+    "requireSSL": true
+  }
+}
