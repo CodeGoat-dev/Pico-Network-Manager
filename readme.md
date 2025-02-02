@@ -17,15 +17,18 @@ A library to help you connect to wireless networks and manage network connection
    - [Basic Implementation](#basic-implementation)  
    - [Customizing Parameters](#customizing-parameters)  
    - [Extended Customisation](#extended-customisation)  
-6. [Security Considerations](#security-considerations)  
-7. [Usage Scenarios](#usage-scenarios)  
+6. [Time Synchronisation API](#time-synchronisation-api)  
+   - [Requirements](#requirements)  
+   - [Setup Instructions](#setup-instructions)  
+7. [Security Considerations](#security-considerations)  
+8. [Usage Scenarios](#usage-scenarios)  
    - [Portable Devices](#portable-devices)  
    - [Home Automation](#home-automation)  
    - [IoT Devices](#iot-devices)  
-8. [Future Enhancements](#future-enhancements)  
-9. [Contributing](#contributing)  
-10. [License](#license)  
-11. [Support](#support)
+9. [Future Enhancements](#future-enhancements)  
+10. [Contributing](#contributing)  
+11. [License](#license)  
+12. [Support](#support)
 
 ---
 
@@ -162,9 +165,42 @@ The library is easy to integrate into your existing project.
 
    # Time synchronisation settings
    network_manager.time_sync = True
-   network_manager.time_sserver = "https://goatbot.org"
+   network_manager.time_server = "https://goatbot.org"
    ```
    - Your optional web server must implement `run()` and `stop_server()` methods which the Network Manager will use.
+
+---
+
+## Time Synchronisation API
+
+You can optionally self-host the **Time Synchronisation API** in environments where you don't have internet access or you want a fully self-hosted solution.
+
+### Requirements
+
+To host the **Time Synchronisation API** locally you will need:
+
+- A computer with NodeJS v22.x installed
+- A domain name **Optional**
+- Security certificates **If using SSL**
+
+---
+
+### Setup Instructions
+
+Before you install and configure the **Time Synchronisation API** you should ensure all requirements are satisfied.
+
+- Open a command shell and navigate to the **"time-api"** directory.
+- Execute the following commands:
+
+```bash
+sudo npm -g install pm2
+sudo pm2 startup
+npm install
+sudo pm2 start ./index.js
+sudo pm2 save
+```
+
+The **Time Synchronisation API** will now be running in the background and will automatically start when your computer starts.
 
 ---
 
