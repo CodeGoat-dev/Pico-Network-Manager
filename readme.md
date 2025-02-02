@@ -123,6 +123,7 @@ The library is easy to integrate into your existing project.
        ap_dns_server=True,
        hostname="MyPicoW",
        time_sync=True,
+       time_server="https://goatbot.org",
        sta_web_server=web_server
    )
    ```
@@ -139,6 +140,7 @@ The library is easy to integrate into your existing project.
        ap_dns_server=True,
        hostname="MyPicoW",
        time_sync=True,
+       time_server="https://goatbot.org",
        sta_web_server=web_server
    )
 
@@ -158,8 +160,9 @@ The library is easy to integrate into your existing project.
    # DHCP settings
    network_manager.hostname = "PicoW"
 
-   # Time synchronisation
-   network_manager.time_sync = time_sync
+   # Time synchronisation settings
+   network_manager.time_sync = True
+   network_manager.time_sserver = "https://goatbot.org"
    ```
    - Your optional web server must implement `run()` and `stop_server()` methods which the Network Manager will use.
 
