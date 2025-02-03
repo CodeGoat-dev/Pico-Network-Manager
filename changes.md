@@ -2,6 +2,14 @@
 
 This document outlines the changes made between versions of the **Goat - Pico Network Manager** library.
 
+## V1.1.1
+
+### Bug Fixes
+
+#### Time Synchronisation
+
+Fixes an issue where the time might not always be synchronised correctly. The internal RTC module is now used to set the date and time.
+
 ## V1.1.0
 
 ## New Features
@@ -9,6 +17,12 @@ This document outlines the changes made between versions of the **Goat - Pico Ne
 #### Time Synchronisation API
 
 The **Time Synchronisation API** is now included as a NodeJS application. This enables users to host their own local Time Synchronisation API.
+
+### changes
+
+#### Instantiation
+
+The `time_server` class instantiation property can now be used to set the time synchronisation server. Only use this if you are self-hosting the **Time Synchronisation API**.
 
 ## V1.0.4
 

@@ -10,6 +10,7 @@
 # Includes DNS redirection for captive portal compliance.
 
 # Imports
+import machine
 import network
 import socket
 import time
@@ -458,16 +459,19 @@ class NetworkManager:
                 if not datetime_str:
                     raise ValueError("Missing 'currentTime' in API response.")
 
-                # Parse datetime string: "2025-01-26T12:34:56"
-                date_part, time_part = datetime_str.split('T')
-                year, month, day = map(int, date_part.split('-'))
-                hour, minute, second = map(int, time_part.split(':'))
+                # Convert to struct_time
+                parsed_time = time.strptime(datetime_str, "%Y-%m-%d %H:%M:%S")
 
-                # Set the system time
-                time_tuple = (year, month, day, hour, minute, second, 0, 0, 0)
-                time.mktime(time_tuple)
+                # Convert to RTC-compatible tuple
+                rtc_time = (parsed_time[0], parsed_time[1], parsed_time[2], 
+            parsed_time[6], parsed_time[3], parsed_time[4], 
+            parsed_time[5], 0)  # Subseconds set to 0
+
+                # Set RTC time
+                rtc = machine.RTC()
+                rtc.datetime(rtc_time)
             
-                print("Date and time set to:", datetime_str)
+                print("Date and time set to:", rtc.datetime())
             else:
                 print(f"Failed to fetch time. Status code: {response.status_code}")
         except Exception as e:
