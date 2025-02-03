@@ -188,6 +188,7 @@ class NetworkManager:
             print(f"Serving on {self.ip_address}:{self.captive_portal_http_port}")
 
             while True:
+                machine.idle()
                 await asyncio.sleep(1)  # Keep the server running
         except Exception as e:
             print(f"Error starting the captive portal server: {e}")
@@ -518,6 +519,8 @@ class NetworkManager:
                     print("No active connections. Rescanning...")
                     await asyncio.sleep(3)  # Pause before rescanning
                     continue
+
+                machine.idle()
 
                 await asyncio.sleep(0.1)
         except Exception as e:

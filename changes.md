@@ -2,6 +2,14 @@
 
 This document outlines the changes made between versions of the **Goat - Pico Network Manager** library.
 
+## V1.1.2
+
+### Changes
+
+#### Execution
+
+Improves execution by implementing CPU clock gating.
+
 ## V1.1.1
 
 ### Bug Fixes
