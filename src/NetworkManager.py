@@ -68,6 +68,9 @@ class NetworkManager:
         # STA web server configuration
         self.sta_web_server = sta_web_server
 
+        # RTC clock
+        self.rtc = machine.rtc()
+
     async def load_config(self):
         """Loads saved network configuration and connects to a saved network."""
         try:
@@ -469,10 +472,15 @@ class NetworkManager:
             parsed_time[5], 0)  # Subseconds set to 0
 
                 # Set RTC time
-                rtc = machine.RTC()
-                rtc.datetime(rtc_time)
+                self.rtc.datetime(rtc_time)
+
+                # Get the time from the RTC
+                rtc_now = self.rtc.datetime()
+
+                # Update the system time
+                utime.mktime((rtc_now[0], rtc_now[1], rtc_now[2], rtc_now[4], rtc_now[5], rtc_now[6], 0, 0))
             
-                print("Date and time set to:", rtc.datetime())
+                print("Date and time set to:", rtc_now)
             else:
                 print(f"Failed to fetch time. Status code: {response.status_code}")
         except Exception as e:
