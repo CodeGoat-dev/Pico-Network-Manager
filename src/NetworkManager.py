@@ -69,7 +69,7 @@ class NetworkManager:
         self.sta_web_server = sta_web_server
 
         # RTC clock
-        self.rtc = machine.rtc()
+        self.rtc = None
 
     async def load_config(self):
         """Loads saved network configuration and connects to a saved network."""
@@ -446,6 +446,19 @@ class NetworkManager:
         <p><a href='/scan'>Start Scan</a></p>"""
         return self.html_template("Goat - Captive Portal", body)
 
+    def strptime(self, date_string, format="%Y-%m-%d %H:%M:%S"):
+        """Manually parse a datetime string to a tuple like strptime"""
+        parts = date_string.split(" ")
+        date_part = parts[0].split("-")
+        time_part = parts[1].split(":")
+
+        # Convert to integers
+        year, month, day = map(int, date_part)
+        hour, minute, second = map(int, time_part)
+
+        # Return a struct_time tuple (year, month, day, hour, min, sec, weekday, yearday, isdst)
+        return (year, month, day, hour, minute, second, 0, 0, 0)
+
     async def get_ntp_time(self):
         """Fetches the current date and time from an NTP server or time API and sets the system time."""
         url = f"{self.time_server}/api/time"
@@ -464,12 +477,15 @@ class NetworkManager:
                     raise ValueError("Missing 'currentTime' in API response.")
 
                 # Convert to struct_time
-                parsed_time = time.strptime(datetime_str, "%Y-%m-%d %H:%M:%S")
+                parsed_time = self.strptime(datetime_str, "%Y-%m-%d %H:%M:%S")
 
                 # Convert to RTC-compatible tuple
                 rtc_time = (parsed_time[0], parsed_time[1], parsed_time[2], 
             parsed_time[6], parsed_time[3], parsed_time[4], 
             parsed_time[5], 0)  # Subseconds set to 0
+
+                # Create RTC object
+                self.rtc = machine.RTC()
 
                 # Set RTC time
                 self.rtc.datetime(rtc_time)
