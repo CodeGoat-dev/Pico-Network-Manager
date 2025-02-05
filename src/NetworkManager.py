@@ -519,7 +519,7 @@ class NetworkManager:
                     print("Stopping automatic time synchronisation...")
                     break
 
-                asyncio.create_task(get_ntp_time())
+                asyncio.create_task(self.get_ntp_time())
 
                 await asyncio.sleep(self.time_sync_interval*60)
         except Exception as e:
