@@ -127,6 +127,7 @@ The library is easy to integrate into your existing project.
        hostname="MyPicoW",
        time_sync=True,
        time_server="https://goatbot.org",
+       time_sync_interval=60,
        sta_web_server=web_server
    )
    ```
@@ -144,6 +145,7 @@ The library is easy to integrate into your existing project.
        hostname="MyPicoW",
        time_sync=True,
        time_server="https://goatbot.org",
+       time_sync_interval=60,
        sta_web_server=web_server
    )
 
@@ -166,6 +168,7 @@ The library is easy to integrate into your existing project.
    # Time synchronisation settings
    network_manager.time_sync = True
    network_manager.time_server = "https://goatbot.org"
+   network_manager.time_sync_interval=360
    ```
    - Your optional web server must implement `run()` and `stop_server()` methods which the Network Manager will use.
 

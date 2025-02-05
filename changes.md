@@ -2,6 +2,18 @@
 
 This document outlines the changes made between versions of the **Goat - Pico Network Manager** library.
 
+## V1.1.4
+
+### Changes
+
+#### Instantiation
+
+The `time_sync_interval` class instantiation property can now be used to set the time synchronisation interval.
+
+#### Time Synchronisation
+
+Time synchronisation is now performed periodically. By default, the synchronisation interval is 360 minutes or 6 hours.
+
 ## V1.1.3
 
 ### Bug Fixes
