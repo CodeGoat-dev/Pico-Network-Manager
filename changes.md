@@ -2,6 +2,14 @@
 
 This document outlines the changes made between versions of the **Goat - Pico Network Manager** library.
 
+## V1.1.5
+
+### Bug Fixes
+
+#### Time Synchronisation
+
+Fixes an issue creating the time synchronisation task due to a missing class inheritance.
+
 ## V1.1.4
 
 ### Changes

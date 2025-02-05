@@ -506,7 +506,7 @@ class NetworkManager:
             if 'response' in locals():
                 response.close()
 
-    async def start_time_sync():
+    async def start_time_sync(self):
         """Periodically synchronises the system date and time."""
         if not self.time_sync:
             return
