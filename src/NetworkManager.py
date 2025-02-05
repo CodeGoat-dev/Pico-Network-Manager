@@ -26,7 +26,7 @@ class NetworkManager:
     Responsible for maintaining network state and managing connection lifetime.
     """
     # Class constructor
-    def __init__(self, ap_ssid="Goat - Captive Portal", ap_password="password", ap_dns_server=True, hostname="PicoW", time_sync=True, time_server="https://goatbot.org", time_sync_interval=30, sta_web_server=None):
+    def __init__(self, ap_ssid="Goat - Captive Portal", ap_password="password", ap_dns_server=True, hostname="PicoW", time_sync=True, time_server="https://goatbot.org", time_sync_interval=360, sta_web_server=None):
         """Constructs the class and exposes properties."""
         # Network configuration
         self.config_directory = "/config"
