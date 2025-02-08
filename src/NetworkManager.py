@@ -486,7 +486,8 @@ class NetworkManager:
             parsed_time[5], 0)  # Subseconds set to 0
 
                 # Create RTC object
-                self.rtc = machine.RTC()
+                if not isinstance(self.rtc, object):
+                    self.rtc = machine.RTC()
 
                 # Set RTC time
                 self.rtc.datetime(rtc_time)
