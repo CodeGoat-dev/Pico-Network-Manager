@@ -2,6 +2,14 @@
 
 This document outlines the changes made between versions of the **Goat - Pico Network Manager** library.
 
+## V1.1.7
+
+### Bug Fixes
+
+#### Time Synchronisation
+
+Fixes an issue with virtual RTC creation.
+
 ## V1.1.6
 
 ### Changes
