@@ -34,7 +34,7 @@ class NetworkManager:
 
         # Constants
         self.VERSION = "1.1.8"
-        self.repo_url = "https://github.com/CodeGoat-dev/Pico-Network-Manager"
+        self.REPO_URL = "https://github.com/CodeGoat-dev/Pico-Network-Manager"
 
         # Interface configuration
         self.sta_if = network.WLAN(network.STA_IF)
