@@ -55,6 +55,9 @@ Pico Network Manager comes packed with the following features:
 - **DNS Redirection**  
   Automatic DNS redirection in AP mode to redirect to the captive portal.
 
+- **IP Customisation**  
+  Functions for setting a static IP, subnet, gateway and DNS server, checking network settings and resetting to DHCP.
+
 - **Connection Monitoring**  
   Automatic network connection monitoring with reconnection and AP fallback.
 
@@ -169,6 +172,15 @@ The library is easy to integrate into your existing project.
    network_manager.time_sync = True
    network_manager.time_server = "https://goatbot.org"
    network_manager.time_sync_interval=360
+
+   # Set static IP
+   network_manager.set_static_ip("192.168.0.2", "255.255.255.0", "192.168.0.1", "192.168.0.1")
+
+   # Get network info
+   network_manager.get_network_info()
+
+   # Reset to DHCP configuration
+   network_manager.reset_to_dhcp()
    ```
    - Your optional web server must implement `run()` and `stop_server()` methods which the Network Manager will use.
 
