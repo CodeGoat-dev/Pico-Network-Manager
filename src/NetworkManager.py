@@ -252,25 +252,35 @@ class NetworkManager:
 
     def reset_to_dhcp(self):
         """
-        Resets the network settings to use DHCP (dynamic IP allocation).
-        The board will need to disconnect and reconnect to apply DHCP settings.
+        Resets network settings to use DHCP (dynamic IP allocation).
+        Instead of disconnecting, forces DHCP renewal.
         """
         if not self.sta_if.isconnected():
             print("Error: Not connected to a network.")
             return False
 
         print("Resetting network configuration to DHCP...")
+        try:
+            self.sta_if.ifconfig(('0.0.0.0', '0.0.0.0', '0.0.0.0', '0.0.0.0'))  # Release IP
+            time.sleep(2)  # Short wait before reconnecting
+            self.sta_if.disconnect()
+            self.sta_if.connect()  # Attempt to reconnect
 
-        self.sta_if.disconnect()  # Disconnect from Wi-Fi
-        self.sta_if.ifconfig(('0.0.0.0', '0.0.0.0', '0.0.0.0', '0.0.0.0'))  # Reset IP config
-        self.sta_if.connect()  # Reconnect to Wi-Fi to obtain DHCP settings
+            # Wait for DHCP lease
+            timeout = utime.time() + 10
+            while not self.sta_if.isconnected() and utime.time() < timeout:
+                utime.sleep(0.5)
 
-        self.ip_address = self.sta_if.ifconfig()[0]
-
-        print("Reconnected with DHCP. New configuration:")
-        print(self.get_network_config())
-
-        return True
+            if self.sta_if.isconnected():
+                print("Reconnected with DHCP. New configuration:")
+                print(self.get_network_config())
+                return True
+            else:
+                print("Failed to obtain DHCP lease.")
+                return False
+        except Exception as e:
+            print(f"Error resetting DHCP: {e}")
+            return False
 
     async def handle_request(self, reader, writer):
         """Handles incoming HTTP requests for the captive portal."""
