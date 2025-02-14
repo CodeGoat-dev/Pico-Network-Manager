@@ -2,6 +2,16 @@
 
 This document outlines the changes made between versions of the **Goat - Pico Network Manager** library.
 
+## V1.2.0
+
+### New Features
+
+#### Network Management
+
+Adds functions to set a static IP, subnet, gateway and DNS server, obtain current settings and reset to DHCP.
+
+Use the `set_static_ip() function to set IP settings, the `get_network_info()` function to get current settings and the `reset_to_dhcp()` function to reset to DHCP.
+
 ## V1.1.8
 
 ### Bug Fixes

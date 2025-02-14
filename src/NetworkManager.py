@@ -209,6 +209,69 @@ class NetworkManager:
         except Exception as e:
             print(f"Error stopping server: {e}")
 
+    def set_static_ip(self, ip: str, subnet: str, gateway: str, dns: str):
+        """
+        Configures a static IP address, subnet mask, gateway, and DNS server for the connected network.
+
+        Args:
+        - ip: Static IP address (e.g., "192.168.1.100")
+        - subnet: Subnet mask (e.g., "255.255.255.0")
+        - gateway: Gateway address (e.g., "192.168.1.1")
+        - dns: DNS server address (e.g., "8.8.8.8")
+        """
+        if not self.sta_if.isconnected():
+            print("Error: Not connected to a network.")
+            return False
+
+        self.sta_if.ifconfig((ip, subnet, gateway, dns))
+
+        self.ip_address = self.sta_if.ifconfig()[0]
+
+        print("Static IP configuration applied:")
+        print(f"IP Address: {ip}")
+        print(f"Subnet Mask: {subnet}")
+        print(f"Gateway: {gateway}")
+        print(f"DNS Server: {dns}")
+
+        return True
+
+    def get_network_config(self):
+        """
+        Returns the current network configuration as a dictionary.
+        """
+        if not self.sta_if.isconnected():
+            return "Not connected to a network."
+
+        ip, subnet, gateway, dns = self.sta_if.ifconfig()
+        return {
+            "IP Address": ip,
+            "Subnet Mask": subnet,
+            "Gateway": gateway,
+            "DNS Server": dns
+        }
+
+    def reset_to_dhcp(self):
+        """
+        Resets the network settings to use DHCP (dynamic IP allocation).
+        The board will need to disconnect and reconnect to apply DHCP settings.
+        """
+        if not self.sta_if.isconnected():
+            print("Error: Not connected to a network.")
+            return False
+
+        print("Resetting network configuration to DHCP...")
+
+        self.sta_if.disconnect()  # Disconnect from Wi-Fi
+        self.sta_if.ifconfig(('0.0.0.0', '0.0.0.0', '0.0.0.0', '0.0.0.0'))  # Reset IP config
+        self.sta_if.connect()  # Reconnect to Wi-Fi to obtain DHCP settings
+
+        self.ip_address = self.sta_if.ifconfig()[0]
+
+        print("Reconnected with DHCP. New configuration:")
+        print(self.get_network_config())
+
+        return True
+
     async def handle_request(self, reader, writer):
         """Handles incoming HTTP requests for the captive portal."""
         try:
