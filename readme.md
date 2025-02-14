@@ -34,7 +34,7 @@ A library to help you connect to wireless networks and manage network connection
 
 ## Overview
 
-**Goat - Pico Network Manager** is a Micropython library for the Raspberry Pi Pico W series of microcontrollers. Perfect for all your networking needs, this library comes with a captive portal for initial network setup and can even manage a web server when connected.
+**Goat - Pico Network Manager** is A powerful and flexible MicroPython networking library for the Raspberry Pi Pico W. Perfect for all your networking needs, this library comes with a captive portal for initial network setup and can even manage a web server when connected.
 
 With features like access point with captive portal, automatic network reconnection and access point fallback, Pico Network Manager ensures a professional IOT networking experience.
 
