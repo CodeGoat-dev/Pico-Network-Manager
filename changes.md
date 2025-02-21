@@ -2,6 +2,14 @@
 
 This document outlines the changes made between versions of the **Goat - Pico Network Manager** library.
 
+## V1.2.1
+
+### Bug Fixes
+
+#### Network Management
+
+Fixes an issue where the IP configuration could not be reset to DHCP.
+
 ## V1.2.0
 
 ### New Features

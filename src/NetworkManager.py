@@ -264,7 +264,6 @@ class NetworkManager:
             self.sta_if.ifconfig(('0.0.0.0', '0.0.0.0', '0.0.0.0', '0.0.0.0'))  # Release IP
             time.sleep(2)  # Short wait before reconnecting
             self.sta_if.disconnect()
-            self.sta_if.connect()  # Attempt to reconnect
 
             # Wait for DHCP lease
             timeout = utime.time() + 10
